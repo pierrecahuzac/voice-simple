@@ -4,7 +4,8 @@ let socket: Socket | null = null;
 
 export function getSocket(): Socket {
   if (!socket) {
-    socket = io(import.meta.env.VITE_SERVER_URL ?? "http://localhost:6666", {
+    const defaultUrl = `http://${window.location.hostname}:6666`;
+    socket = io(import.meta.env.VITE_SERVER_URL ?? defaultUrl, {
       autoConnect: false,
     });
   }

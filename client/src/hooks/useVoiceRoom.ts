@@ -71,14 +71,16 @@ export function useVoiceRoom() {
   }, [startVAD]);
 
   const start = useCallback(async () => {
-    const socket = getSocket();
-    socketRef.current = socket;
-    socket.connect();
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    localStreamRef.current = stream;
-    startVAD("local", stream);
+    try {
+      useRoomStore.getState().setError(null);
+      const socket = getSocket();
+      socketRef.current = socket;
+      socket.connect();
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      localStreamRef.current = stream;
+      startVAD("local", stream);
 
-    socket.emit(SOCKET_EVENTS.JOIN_ROOM, { roomId: useRoomStore.getState().roomId });
+      socket.emit(SOCKET_EVENTS.JOIN_ROOM, { roomId: useRoomStore.getState().roomId });
 
     socket.on("room-peers", async (peers: string[]) => {
       for (const peerId of peers) {
@@ -136,6 +138,9 @@ export function useVoiceRoom() {
     });
 
     useRoomStore.getState().setJoined(true);
+    } catch (e) {
+      useRoomStore.getState().setError(e instanceof Error ? e.message : "Erreur micro/signalisation");
+    }
   }, [createPC, startVAD, stopVAD]);
 
   const stop = useCallback(() => {

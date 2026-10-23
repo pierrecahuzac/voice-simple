@@ -7,6 +7,7 @@ export default function App() {
   const roomId = useRoomStore((s) => s.roomId);
   const joined = useRoomStore((s) => s.joined);
   const localMuted = useRoomStore((s) => s.localMuted);
+  const error = useRoomStore((s) => s.error);
   const peers = useRoomStore((s) => s.peers);
   const setUsername = useRoomStore((s) => s.setUsername);
   const setRoomId = useRoomStore((s) => s.setRoomId);
@@ -43,6 +44,7 @@ export default function App() {
         <button onClick={start} disabled={!username.trim()} style={{ padding: "8px 16px" }}>
           Rejoindre
         </button>
+        {error && <p style={{ color: "red", marginTop: 8 }}>{error}</p>}
       </main>
     );
   }
