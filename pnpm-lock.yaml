@@ -20,6 +20,9 @@ importers:
 
   client:
     dependencies:
+      '@voice-simple/shared':
+        specifier: workspace:*
+        version: link:../shared
       react:
         specifier: ^18.3.0
         version: 18.3.1
