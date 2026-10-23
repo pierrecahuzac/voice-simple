@@ -34,6 +34,6 @@
 - CI: GitHub Actions (lint + typecheck + tests)
 
 ## Ports
-- Client dev: 5173
-- Server: 3000
+- Client dev: 5273
+- Server: 6666
 - Postgres: 5432

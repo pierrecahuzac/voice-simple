@@ -1,0 +1,28 @@
+{
+  "name": "@voice-simple/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "echo ok"
+  },
+  "dependencies": {
+    "@voice-simple/shared": "workspace:*",
+    "fastify": "^5.0.0",
+    "@fastify/cors": "^10.0.0",
+    "socket.io": "^4.8.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "@types/node": "^22.0.0",
+    "vitest": "^2.1.0"
+  }
+}

@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: voice
+      POSTGRES_PASSWORD: voice
+      POSTGRES_DB: voice
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    environment:
+      PORT: "6666"
+      DATABASE_URL: "postgresql://voice:voice@postgres:5432/voice"
+    ports:
+      - "6666:6666"
+    depends_on:
+      - postgres
+
+  client:
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+    ports:
+      - "5273:5273"
+    depends_on:
+      - server
+
+volumes:
+  pgdata:
